@@ -2,5 +2,6 @@
 name = "kiko"
 version = "0.1.0"
 authors = ["hdemon <zeitdiebe@gmail.com>"]
+build = "build.rs"
 
 [dependencies]

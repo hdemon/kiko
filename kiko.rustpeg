@@ -1,0 +1,33 @@
+#[pub]
+kiko
+  = expression*
+
+integer "integer"
+  = digits:[0-9]+ { return parseInt(digits.join(""), 10); }
+
+expression
+  = (space? '(' body:body ')' space?) { return body; }
+
+body
+  = body:(expression / identifier / integer / string / space )* { return body.filter(function(a) { return (a != ""); }) }
+
+string
+  = "\"" content:([^"\\] / "\\" . )* "\"" {}
+
+identifier
+  = identifier:([a-zA-Z\=\*:] [a-zA-Z0-9_\=\*-:]*) {
+  function concat(o,i){
+    var r=[];
+    for(var p in o){
+        r.push(o[p]);
+    }
+    return r.join("");
+  }
+return identifier.map(function(a) {return concat(a)}).join("");
+}
+
+space
+  = [\s\n ]+ { return ""; }
+
+comment
+  = "#" .*
